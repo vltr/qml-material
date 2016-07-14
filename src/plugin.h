@@ -19,7 +19,7 @@ class MaterialPlugin : public QQmlExtensionPlugin
     Q_PLUGIN_METADATA(IID "io.papyros.Material")
 
 public:
-    void registerTypes(const char *uri);
+    void registerTypes(const char* uri);
 };
 
 #endif // MATERIAL_PLUGIN_H

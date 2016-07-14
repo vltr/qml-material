@@ -11,6 +11,8 @@
 #include "plugin.h"
 
 #include <QtQml>
+#include <QQmlExtensionPlugin>
+#include <QObject>
 
 #include "core/device.h"
 #include "core/units.h"
@@ -18,21 +20,12 @@
 class MaterialRegisterHelper {
 
 public:
-    MaterialRegisterHelper(const char *uri) {
+    void registerTypes(const char* uri)
+    {
+        Q_ASSERT(uri == QStringLiteral("Material"));
         qmlRegisterSingletonType<Device>(uri, 0, 1, "Device", Device::qmlSingleton);
         qmlRegisterUncreatableType<Units>(uri, 0, 3, "Units", QStringLiteral("Units can only be used via the attached property."));
     }
 };
 
-void MaterialPlugin::registerTypes(const char *uri)
-{
-    // @uri Material
-    Q_ASSERT(uri == QStringLiteral("Material"));
 
-    MaterialRegisterHelper helper(uri);
-}
-
-// When using QPM, the C++ plugin is not used and the QML types must be registered manually
-#ifdef QPM_INIT
-    static MaterialRegisterHelper registerHelper("Material");
-#endif
